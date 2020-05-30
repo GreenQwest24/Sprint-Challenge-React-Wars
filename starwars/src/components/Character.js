@@ -1,60 +1,50 @@
 // Write your Character component here
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import axios from 'axios';
+import CharacterCard from './CharacterCard'
 
 // Write your character component here
 
-const Cards = props => {
-    let {data} = props;
-
-    return (
+const Character = () => {
+   const [character, setCharacter] = useState([])
+    useEffect (() => {
+        axios.get('(https://swapi.py4e.com/api/character/')
+        .then(response => {
+            console.log(response.data.results);
+            setCharacter(response.data.results);
+        
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, []);
 
     <div>
 
-        { data.map(character => {
-            return (
+        { character.map(character => {
+            return  <CharacterCard
 
-         <StyledDiv>
+        
 
-             <StyledCard>
+                name= {character.name}
+                gender= { character.gender}
+                status= {character.status}
+                species= {character.species}
+                location={character.location}
 
-                <h3>Name: {character.name}</h3>
-                <h3>Gender: { character.gender}</h3>
-                <h3>Status: {character.status}</h3>
-                <h3>Species: {character.species}</h3>
-                <h3>Mug Shot</h3>
+                />
 
-                <StyledImg src={character.image}></StyledImg>
+                
 
-            </StyledCard>
-        </StyledDiv>
-
-            )
+            
         })}
 
     </div>
-    
-            )
 }
 
-const StyledDiv = styled.div 
 
-flex-direction: column;
-display: flex;
-align-items: ClientRect;
+export default Character;
+    
+            
 
-;
 
-const StyledCard = styled.div
-background-color: #8cc5d2c7;
-width: 50%;
-margin: 2%;
-padding: 2%;
-border: dotted 2px black;
-border-radius: 50%;
-
-;
-
-const StyledImg = styled.img
-border: black solid 2px;
-border-radius: 50%;
