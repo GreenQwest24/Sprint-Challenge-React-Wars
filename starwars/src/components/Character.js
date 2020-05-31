@@ -1,50 +1,47 @@
 // Write your Character component here
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CharacterCard from './CharacterCard'
-
-// Write your character component here
-
-const Character = () => {
-   const [character, setCharacter] = useState([])
-    useEffect (() => {
-        axios.get('(https://swapi.py4e.com/api/character/')
-        .then(response => {
-            console.log(response.data.results);
-            setCharacter(response.data.results);
-        
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    }, []);
-
-    <div>
-
-        { character.map(character => {
-            return  <CharacterCard
-
-        
-
-                name= {character.name}
-                gender= { character.gender}
-                status= {character.status}
-                species= {character.species}
-                location={character.location}
-
-                />
-
-                
-
-            
-        })}
-
-    </div>
-}
+import React, {useState, useEffect} from 'react';
+import styled from 'styled-components';
 
 
-export default Character;
-    
-            
+
+// Write your character components here
+
+const Cards = props => {
+    let {data} = props;
+
+    return (
+
+        <div>
+
+            { data.map(character => {
+                return (
+
+                    <StyledDiv>
+                        <StyledCard>
+
+                            <h3>Name: {character.name}</h3>
+                            <h3>Gender: {character.gender}</h3>
+                            <h3>Status: {character.status}</h3>
+                            <h3>Spieces: {character.species}</h3>
+                            <h3>Mug Shot</h3>
+
+                            <StyledImg src={character.image}></StyledImg>
+
+                        </StyledCard>
+                    </StyledDiv>
+                )
+            })}
+        </div>
+    )
+        }
+const StyledDiv = styled.div
+
+const StyledCard = styled.div
+
+const StyledImg = styled.img
 
 
+
+export default CharacterCard;
+
+  
